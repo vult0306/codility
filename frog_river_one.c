@@ -40,32 +40,33 @@
 
 // N and X are integers within the range [1..100,000];
 // each element of array A is an integer within the range [1..X].
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-int solution(int X, int A[], int N)
-{
-        int l = 1;
-        int max = 0;
-        int i;
-        for (i=0; i< N; i++)
-                if (A[i] == X)
-                        break;
-        if (i == N) return -1;
-        while (l<=X){
-                for (i=0; i<N; i++)
-                        if (A[i]==l){
-                                if (max < i)
-                                        max = i;
-                                l +=1;
-                                break;
-                        }
-                if (i==N && l<X)
-                        return -1;
+int solution(int X, int A[], int N) {
+    // write your code in C99 (gcc 6.2.0)
+    bool B[X+1];
+    int count = 0;
+
+    for (int i=1; i<=X; i++)
+    {
+        B[i] = false;
+    }
+
+    for (int i=0; i<N; i++)
+    {
+        if ((B[A[i]] == false) && (A[i] <= X))
+        {
+            B[A[i]] = true;
+            count++;
+            if (count == X)
+                return i;
         }
-        return max;
+    }
+    return -1;
 }
+
 int main(void)
 {       int N = 7;
         int A[N];
